@@ -101,17 +101,6 @@ class Storage {
 	}
 	
 	/**
-	 * Get collection of models
-	 * @param string $model_name
-	 * @return \Door\ORM\Collection
-	 */
-	public function collection($model_name)
-	{
-		$model_classname = $this->get_model_classname($model_name);
-		return new Collection($this, $model_name, $model_classname);
-	}	
-	
-	/**
 	 * Get database instance
 	 * @return Database
 	 * @throws Exception
@@ -163,7 +152,7 @@ class Storage {
 		
 		$class = $this->models[$model_name];
 		
-		return new $class($this, $model_name, $id);
+		return new $class($this, $id);
 	}
 	
 	public function set_init_cache($model_name, array $init_cache)

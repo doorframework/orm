@@ -221,11 +221,10 @@ class Model implements Serializable {
 	 *
 	 * @param   mixed $id Parameter for find or object to load
 	 */
-	public function __construct(Storage $storage, $model_name,  $id = NULL)
+	public function __construct(Storage $storage,  $id = NULL)
 	{
 		$this->_storage = $storage;
 		$this->_db = $storage->db();
-		$this->_object_name = $model_name;
 		
 		$this->_initialize();
 
