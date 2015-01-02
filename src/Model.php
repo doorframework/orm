@@ -466,7 +466,7 @@ class Model implements Serializable {
 	 * Override this method to add custom get behavior
 	 *
 	 * @param   string $column Column name
-	 * @throws Kohana_Exception
+	 * @throws Exception
 	 * @return mixed
 	 */
 	public function get($column)
@@ -565,7 +565,7 @@ class Model implements Serializable {
 	 *
 	 * @param  string $column Column name
 	 * @param  mixed  $value  Column value
-	 * @throws Kohana_Exception
+	 * @throws Exception
 	 * @return $this
 	 */
 	public function set($column, $value)
@@ -806,13 +806,13 @@ class Model implements Serializable {
 	 * Finds and loads a single database row into the object.
 	 *
 	 * @chainable
-	 * @throws Kohana_Exception
+	 * @throws Exception
 	 * @return $this
 	 */
 	public function find()
 	{
 		if ($this->_loaded)
-			throw new Kohana_Exception('Method find() cannot be called on loaded objects');
+			throw new Exception('Method find() cannot be called on loaded objects');
 
 		if ( ! empty($this->_load_with))
 		{
@@ -831,13 +831,13 @@ class Model implements Serializable {
 	/**
 	 * Finds multiple database rows and returns an iterator of the rows found.
 	 *
-	 * @throws Kohana_Exception
+	 * @throws Exception
 	 * @return Database_Result
 	 */
 	public function find_all()
 	{
 		if ($this->_loaded)
-			throw new Kohana_Exception('Method find_all() cannot be called on loaded objects');
+			throw new Exception('Method find_all() cannot be called on loaded objects');
 
 		if ( ! empty($this->_load_with))
 		{
@@ -1137,13 +1137,13 @@ class Model implements Serializable {
 	/**
 	 * Insert a new object to the database
 	 * @param  Validation $validation Validation object
-	 * @throws Kohana_Exception
+	 * @throws Exception
 	 * @return $this
 	 */
 	public function create(Validation $validation = NULL)
 	{
 		if ($this->_loaded)
-			throw new Kohana_Exception('Cannot create :model model because it is already loaded.', array(':model' => $this->_object_name));
+			throw new Exception('Cannot create :model model because it is already loaded.', array(':model' => $this->_object_name));
 
 		// Require model validation before saving
 		if ( ! $this->_valid OR $validation)
@@ -1197,13 +1197,13 @@ class Model implements Serializable {
 	 *
 	 * @chainable
 	 * @param  Validation $validation Validation object
-	 * @throws Kohana_Exception
+	 * @throws Exception
 	 * @return $this
 	 */
 	public function update(Validation $validation = NULL)
 	{
 		if ( ! $this->_loaded)
-			throw new Kohana_Exception('Cannot update :model model because it is not loaded.', array(':model' => $this->_object_name));
+			throw new Exception('Cannot update :model model because it is not loaded.', array(':model' => $this->_object_name));
 
 		// Run validation if the model isn't valid or we have additional validation rules.
 		if ( ! $this->_valid OR $validation)
@@ -1274,13 +1274,13 @@ class Model implements Serializable {
 	 * Deletes a single record while ignoring relationships.
 	 *
 	 * @chainable
-	 * @throws Kohana_Exception
+	 * @throws Exception
 	 * @return $this
 	 */
 	public function delete()
 	{
 		if ( ! $this->_loaded)
-			throw new Kohana_Exception('Cannot delete :model model because it is not loaded.', array(':model' => $this->_object_name));
+			throw new Exception('Cannot delete :model model because it is not loaded.', array(':model' => $this->_object_name));
 
 		// Use primary key value
 		$id = $this->pk();
