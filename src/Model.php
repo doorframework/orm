@@ -309,7 +309,7 @@ class Model implements Serializable {
 	 * Unloads the current object and clears the status.
 	 *
 	 * @chainable
-	 * @return ORM
+	 * @return $this
 	 */
 	public function clear()
 	{
@@ -337,7 +337,7 @@ class Model implements Serializable {
 	 * Reloads the current object from the database.
 	 *
 	 * @chainable
-	 * @return ORM
+	 * @return $this
 	 */
 	public function reload()
 	{
@@ -348,11 +348,15 @@ class Model implements Serializable {
 
 		// Only reload the object if we have one to reload
 		if ($this->_loaded)
+		{
 			return $this->clear()
 				->where($this->_object_name.'.'.$this->_primary_key, '=', $primary_key)
 				->find();
+		}
 		else
+		{
 			return $this->clear();
+		}
 	}
 
 	/**
@@ -562,7 +566,7 @@ class Model implements Serializable {
 	 * @param  string $column Column name
 	 * @param  mixed  $value  Column value
 	 * @throws Kohana_Exception
-	 * @return ORM
+	 * @return $this
 	 */
 	public function set($column, $value)
 	{
@@ -622,7 +626,7 @@ class Model implements Serializable {
 	 *
 	 * @param  array $values   Array of column => val
 	 * @param  array $expected Array of keys to take from $values
-	 * @return ORM
+	 * @return $this
 	 */
 	public function values(array $values, array $expected = NULL)
 	{
@@ -683,7 +687,7 @@ class Model implements Serializable {
 	 * can be nested using 'object1:object2' syntax
 	 *
 	 * @param  string $target_path Target model to bind to
-	 * @return ORM
+	 * @return $this
 	 */
 	public function with($target_path)
 	{
@@ -766,7 +770,7 @@ class Model implements Serializable {
 	 * Initializes the Database Builder to given query type
 	 *
 	 * @param  integer $type Type of Database query
-	 * @return ORM
+	 * @return $this
 	 */
 	protected function _build($type)
 	{
@@ -803,7 +807,7 @@ class Model implements Serializable {
 	 *
 	 * @chainable
 	 * @throws Kohana_Exception
-	 * @return ORM
+	 * @return $this
 	 */
 	public function find()
 	{
@@ -873,7 +877,7 @@ class Model implements Serializable {
 	 *
 	 * @chainable
 	 * @param  bool $multiple Return an iterator or load a single row
-	 * @return ORM|Database_Result
+	 * @return $this|Database_Result
 	 */
 	protected function _load_result($multiple = FALSE)
 	{
@@ -938,7 +942,7 @@ class Model implements Serializable {
 	 *
 	 * @chainable
 	 * @param  array $values Values to load
-	 * @return ORM
+	 * @return $this
 	 */
 	protected function _load_values(array $values)
 	{
@@ -1103,7 +1107,7 @@ class Model implements Serializable {
 	 *
 	 * @param  Validation $extra_validation Validation object
 	 * @throws ORM_Validation_Exception
-	 * @return ORM
+	 * @return $this
 	 */
 	public function check(Validation $extra_validation = NULL)
 	{
@@ -1134,7 +1138,7 @@ class Model implements Serializable {
 	 * Insert a new object to the database
 	 * @param  Validation $validation Validation object
 	 * @throws Kohana_Exception
-	 * @return ORM
+	 * @return $this
 	 */
 	public function create(Validation $validation = NULL)
 	{
@@ -1194,7 +1198,7 @@ class Model implements Serializable {
 	 * @chainable
 	 * @param  Validation $validation Validation object
 	 * @throws Kohana_Exception
-	 * @return ORM
+	 * @return $this
 	 */
 	public function update(Validation $validation = NULL)
 	{
@@ -1259,7 +1263,7 @@ class Model implements Serializable {
 	 *
 	 * @chainable
 	 * @param  Validation $validation Validation object
-	 * @return ORM
+	 * @return $this
 	 */
 	public function save(Validation $validation = NULL)
 	{
@@ -1271,7 +1275,7 @@ class Model implements Serializable {
 	 *
 	 * @chainable
 	 * @throws Kohana_Exception
-	 * @return ORM
+	 * @return $this
 	 */
 	public function delete()
 	{
@@ -1403,7 +1407,7 @@ class Model implements Serializable {
 	 *
 	 * @param  string  $alias    Alias of the has_many "through" relationship
 	 * @param  mixed   $far_keys Related model, primary key, or an array of primary keys
-	 * @return ORM
+	 * @return $this
 	 */
 	public function add($alias, $far_keys)
 	{
@@ -1438,7 +1442,7 @@ class Model implements Serializable {
 	 *
 	 * @param  string $alias    Alias of the has_many "through" relationship
 	 * @param  mixed  $far_keys Related model, primary key, or an array of primary keys
-	 * @return ORM
+	 * @return $this
 	 */
 	public function remove($alias, $far_keys = NULL)
 	{
@@ -1517,7 +1521,7 @@ class Model implements Serializable {
 	 * Returns an ORM model for the given one-one related alias
 	 *
 	 * @param  string $alias Alias name
-	 * @return ORM
+	 * @return $this
 	 */
 	protected function _related($alias)
 	{
@@ -1564,7 +1568,7 @@ class Model implements Serializable {
 	 * query conditions for another query.
 	 *
 	 * @param bool $next Pass FALSE to avoid resetting on the next call
-	 * @return ORM
+	 * @return $this
 	 */
 	public function reset($next = TRUE)
 	{
