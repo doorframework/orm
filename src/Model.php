@@ -230,34 +230,35 @@ class Model implements Serializable {
 
 		if ($id !== NULL)
 		{
-			if (is_array($id))
-			{
-				foreach ($id as $column => $value)
-				{
-					// Passing an array of column => values
-					$this->where($column, '=', $value);
-				}
-
-				$this->find();
-			}
-			else
-			{
-				// Passing the primary key
-				$this->where($this->_object_name.'.'.$this->_primary_key, '=', $id)->find();
-			}
-		}
-		elseif ( ! empty($this->_cast_data))
-		{
-			// Load preloaded data from a database call cast
-			$this->_load_values($this->_cast_data);
-
-			$this->_cast_data = array();
+			$this->_init_from_id($id);
 		}
 	}
 	
+	/**
+	 * Override this method to put your initialisation values
+	 */
 	protected function _init_model()
 	{
 		
+	}
+	
+	private function _init_from_id($id)
+	{
+		if (is_array($id))
+		{
+			foreach ($id as $column => $value)
+			{
+				// Passing an array of column => values
+				$this->where($column, '=', $value);
+			}
+
+			$this->find();
+		}
+		else
+		{
+			// Passing the primary key
+			$this->where($this->_object_name.'.'.$this->_primary_key, '=', $id)->find();
+		}		
 	}
 
 	/**
