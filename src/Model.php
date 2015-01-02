@@ -267,25 +267,13 @@ class Model implements Serializable {
 	 * @return void
 	 */
 	private function _initialize()
-	{		
-		$init_fields = array(
-			"_has_one","_has_many","_table_columns","_belongs_to"
-		);				
-		
+	{					
 		$init_cache = $this->_storage->get_init_cache($this->_object_name);		
 		
 		// Check if this model has already been initialized
 		if ($init_cache == null)
 		{					
-			$this->_init_model();
-			
-			$init_cache = array();
-			foreach($init_fields as $init_field)
-			{
-				$init_cache[$init_field] = new ColumnsArray($this->$init_field);
-			}
-			
-			$this->_storage->set_init_cache($this->_object_name, $init_cache);
+			$this->_init_cache();
 		}
 		else
 		{
@@ -297,6 +285,23 @@ class Model implements Serializable {
 
 		// Clear initial model state
 		$this->clear();
+	}
+	
+	private function _init_cache()
+	{
+		$init_fields = array(
+			"_has_one","_has_many","_table_columns","_belongs_to"
+		);					
+		
+		$this->_init_model();
+
+		$init_cache = array();
+		foreach($init_fields as $init_field)
+		{
+			$init_cache[$init_field] = new ColumnsArray($this->$init_field);
+		}
+
+		$this->_storage->set_init_cache($this->_object_name, $init_cache);		
 	}
 
 	/**
