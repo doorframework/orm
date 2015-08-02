@@ -295,7 +295,7 @@ class Model implements Serializable
 
         $init_cache = array();
         foreach ($init_fields as $init_field) {
-            $init_cache[$init_field] = new ColumnsArray($this->$init_field);
+            $init_cache[$init_field] = $this->$init_field;
         }
 
         $this->_storage->set_init_cache($this->_object_name, $init_cache);
